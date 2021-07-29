@@ -1,0 +1,71 @@
+.Form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 300px;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: #4096cf63;
+  box-shadow: 0 0 5px 5px #4096cf;
+}
+
+.Input {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 30px;
+  padding: 8px;
+  font-size: 22px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px;
+}
+
+.Input:hover,
+.Input:focus {
+  box-shadow: 0 0 10px rgb(245, 211, 149);
+  transition: 250ms linear;
+}
+
+.Label {
+  display: flex;
+  flex-direction: column;
+}
+
+.Span {
+  margin-bottom: 8px;
+  font-size: 22px;
+  font-weight: 500;
+  color: black;
+}
+
+.BtnContact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 500;
+  width: 150px;
+  padding: 5px;
+  border: none;
+  color: white;
+  background-color: rgb(17, 192, 76);
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0 10px 10px -5px rgb(112, 103, 103);
+}
+
+.BtnContact:hover,
+.BtnContact:focus {
+  background-color: #fff;
+  color: rgb(17, 192, 76);
+  box-shadow: 0 0 10px 5px rgb(17, 192, 76);
+  transition: 250ms linear;
+}
+
+.BtnContact:hover .IconAdd,
+.BtnContact:focus .IconAdd {
+  fill: rgb(17, 192, 76);
+  transition: 250ms linear;
+}

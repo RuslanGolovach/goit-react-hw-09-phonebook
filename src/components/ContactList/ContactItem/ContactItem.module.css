@@ -1,0 +1,46 @@
+.ItemList {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0 auto;
+  margin-bottom: 5px;
+}
+
+.Text {
+  color: black;
+}
+
+.DeleteBtn {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  background-color: red;
+  color: aliceblue;
+  cursor: pointer;
+  box-shadow: 0 10px 10px -5px rgb(112, 103, 103);
+}
+
+.DeleteBtn:hover,
+.DeleteBtn:focus {
+  background-color: aliceblue;
+  color: red;
+  box-shadow: 0 0 10px 5px red;
+  transition: 250ms linear;
+}
+
+.IconDelete {
+  margin-right: 8px;
+}
+
+.DeleteBtn:hover .IconDelete,
+.DeleteBtn:focus .IconDelete {
+  fill: red;
+  transition: 250ms linear;
+}

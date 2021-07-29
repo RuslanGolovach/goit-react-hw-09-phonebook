@@ -1,0 +1,15 @@
+.ContainerCont {
+  padding: 30px;
+}
+
+.Title {
+  margin: 0;
+  margin-bottom: 15px;
+  color: #0d0d0d;
+  text-shadow: 0 2px 1px #4096cf, -1px 3px 1px #4096cf, -2px 5px 1px #4096cf;
+}
+
+.TitleContacts {
+  color: #0d0d0d;
+  text-shadow: 0 2px 1px #4096cf, -1px 3px 1px #4096cf, -2px 5px 1px #4096cf;
+}

@@ -1,0 +1,22 @@
+.LabelFind {
+  display: flex;
+  flex-direction: column;
+}
+
+.InputFind {
+  width: 300px;
+  height: 40px;
+  margin-bottom: 30px;
+  padding: 8px;
+  font-size: 22px;
+  margin: 0 auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #4096cf;
+}
+
+.SpanFind {
+  color: black;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
