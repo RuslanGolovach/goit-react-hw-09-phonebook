@@ -1,95 +1,95 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import authOperations from '../../redux/auth/auth-operations';
 import styles from './RegisterView.module.css';
 
-class RegisterView extends Component {
-  state = {
-    name: '',
-    email: '',
-    password: '',
-  };
+export default function RegisterView() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  handleChange = ({ target: { name, value } }) => {
-    this.setState({ [name]: value });
-  };
+  const handleChange = useCallback(evt => {
+    const { name, value } = evt.target;
 
-  handleSubmit = e => {
-    e.preventDefault();
+    switch (name) {
+      case 'name':
+        setName(value);
+        break;
 
-    this.props.onRegister(this.state);
+      case 'email':
+        setEmail(value);
+        break;
 
-    this.setState({ name: '', email: '', password: '' });
-  };
+      case 'password':
+        setPassword(value);
+        break;
 
-  render() {
-    const { name, email, password } = this.state;
+      default:
+        console.warn(`Тип поля - ${name} не обрабатывается`);
+    }
+  }, []);
 
-    return (
-      <div>
-        <h1 className={styles.TitleRegister}>SIGN UP</h1>
+  const dispatch = useDispatch();
 
-        <form
-          className={styles.FormRegister}
-          onSubmit={this.handleSubmit}
-          style={styles.form}
-          autoComplete="on"
-        >
-          <label style={styles.label}>
-            <input
-              className={styles.InputRegister}
-              type="text"
-              name="name"
-              placeholder="Name"
-              value={name}
-              onChange={this.handleChange}
-            />
-          </label>
+  const handleSubmit = useCallback(
+    evt => {
+      evt.preventDefault();
+      dispatch(authOperations.register({ name, email, password }));
 
-          <label style={styles.label}>
-            <input
-              className={styles.InputRegister}
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={email}
-              onChange={this.handleChange}
-            />
-          </label>
+      setName('');
+      setEmail('');
+      setPassword('');
+    },
+    [dispatch, email, name, password],
+  );
 
-          <label style={styles.label}>
-            <input
-              className={styles.InputRegister}
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password}
-              onChange={this.handleChange}
-            />
-          </label>
+  return (
+    <div>
+      <h1 className={styles.TitleRegister}>SIGN UP</h1>
 
-          <button className={styles.BtnRegistet} type="submit">
-            Sing Up
-          </button>
-        </form>
-      </div>
-    );
-  }
+      <form
+        className={styles.FormRegister}
+        onSubmit={handleSubmit}
+        style={styles.form}
+        autoComplete="on"
+      >
+        <label style={styles.label}>
+          <input
+            className={styles.InputRegister}
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={name}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label style={styles.label}>
+          <input
+            className={styles.InputRegister}
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={email}
+            onChange={handleChange}
+          />
+        </label>
+
+        <label style={styles.label}>
+          <input
+            className={styles.InputRegister}
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={handleChange}
+          />
+        </label>
+
+        <button className={styles.BtnRegistet} type="submit">
+          Sing Up
+        </button>
+      </form>
+    </div>
+  );
 }
-
-/*
- * 1-й вариант
- */
-// const mapDispatchToProps = {
-//   onRegister: authOperations.register,
-// };
-
-/*
- * 2-й вариант
- */
-
-const mapDispatchToProps = dispatch => ({
-  onRegister: data => dispatch(authOperations.register(data)),
-});
-
-export default connect(null, mapDispatchToProps)(RegisterView);

@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { contactsOperations } from '../../redux/contacts';
 import {
   getLoading,
@@ -10,17 +9,29 @@ import ContactItem from './ContactItem';
 import PreLoader from '../PreLoader';
 import styles from './ContactList.module.css';
 
-class ContactList extends Component {
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+export default function ContactsList() {
+  const contacts = useSelector(filteredContacts);
+  const isLoadingContacts = useSelector(getLoading);
 
-  render() {
-    const { contacts, onDeleteClick, isLoadingContacts } = this.props;
-    return (
-      <div className={styles.Thumb}>
-        {isLoadingContacts && <PreLoader />}
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(contactsOperations.fetchContacts());
+    return () => {};
+  }, [dispatch]);
+
+  const onDeleteClick = useCallback(
+    id => {
+      dispatch(contactsOperations.deleteContact(id));
+    },
+    [dispatch],
+  );
+
+  return (
+    <div className={styles.Thumb}>
+      {isLoadingContacts && <PreLoader />}
+
+      {contacts.length > 0 ? (
         <ul className={styles.List}>
           {contacts.map(({ id, name, number }) => {
             return (
@@ -34,24 +45,9 @@ class ContactList extends Component {
             );
           })}
         </ul>
-      </div>
-    );
-  }
+      ) : (
+        <h2>Your contacts will be here</h2>
+      )}
+    </div>
+  );
 }
-
-ContactList.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  onDeleteClick: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = state => ({
-  contacts: filteredContacts(state),
-  isLoadingContacts: getLoading(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onDeleteClick: id => dispatch(contactsOperations.deleteContact(id)),
-  fetchContacts: () => dispatch(contactsOperations.fetchContacts()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
